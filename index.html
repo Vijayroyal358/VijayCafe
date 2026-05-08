@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijay Cafe | Fresh Bites. Great Vibes.</title>
+    <meta name="description"
+        content="Experience delicious food, refreshing beverages, and the perfect cafe atmosphere at Vijay Cafe in Tirupati.">
+    <!-- CSP: allow eval for Supabase/AOS CDN libraries -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; connect-src 'self' https://cdn.jsdelivr.net https://*.supabase.co wss://*.supabase.co; frame-src https://maps.google.com https://www.google.com;">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- Swiper Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="premium.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-mug-hot"></i>
+                Vijay <span>Cafe</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="#catering">Catering</a>
+                <a href="#about">About Us</a>
+                <a href="menu.html#offers">Offers</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="auth-toggle" class="icon-btn" aria-label="User Account">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button id="cart-toggle" class="icon-btn" aria-label="Open Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="menu.html" class="btn btn-primary nav-order-btn">Order Online</a>
+                <button class="mobile-toggle icon-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero section hero-premium">
+            <!-- Blob Background Shapes -->
+            <div class="hero-blobs" aria-hidden="true">
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="blob blob-3"></div>
+            </div>
+
+            <div class="hero-premium-inner">
+                <!-- Text Content -->
+                <div class="hero-text-block">
+                    <span class="hero-eyebrow">✦ Since 2026 · Tirupati</span>
+                    <h1 class="hero-premium-title">
+                        <span class="title-line">Vijay</span>
+                        <span class="title-line accent-line">Cafe</span>
+                    </h1>
+                    <p class="hero-premium-desc">
+                        Where every bite is crafted with love. Fresh ingredients, bold flavors,<br>and the warmth of a
+                        neighborhood café — all in one place.
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="menu.html" class="btn-hero-primary btn-hero-brand">
+                            <span>Order Now</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#about" class="btn-hero-ghost btn-hero-ghost-brand">
+                            Our Story
+                        </a>
+                    </div>
+                    <!-- Social proof mini bar -->
+                    <div class="hero-social-proof">
+                        <div class="proof-avatars">
+                            <img src="https://i.pravatar.cc/32?img=1" alt="Customer">
+                            <img src="https://i.pravatar.cc/32?img=5" alt="Customer">
+                            <img src="https://i.pravatar.cc/32?img=8" alt="Customer">
+                        </div>
+                        <div class="proof-text">
+                            <strong>2,000+</strong> happy customers
+                            <span class="proof-stars">★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Image Visual -->
+                <div class="hero-visual-block">
+                    <div class="food-glow-ring"></div>
+                    <div class="food-img-wrapper">
+                        <img src="vijay_cafe_hero.png" alt="Signature dish at Vijay Cafe" class="hero-food-img"
+                            onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80'">
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="float-badge badge-top">
+                        <i class="fa-solid fa-star" style="color:#F59E0B;"></i>
+                        <span>4.9 Rating</span>
+                    </div>
+                    <div class="float-badge badge-bottom">
+                        <i class="fa-solid fa-fire" style="color:#EF4444;"></i>
+                        <span>Today's Special</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative bottom wave -->
+            <div class="hero-wave" aria-hidden="true">
+                <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="var(--bg-alt, #F5F1EB)" />
+                </svg>
+            </div>
+        </section> <!-- Feature Highlights -->
+        <section class="features section bg-alt">
+            <div class="container features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>Locally sourced, premium quality ingredients daily.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Fast Service</h3>
+                    <p>Hot and fresh meals served with a smile quickly.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-wrapper"><i class="fa-solid fa-couch"></i></div>
+                    <h3>Cozy Ambience</h3>
+                    <p>Relaxing environment perfect for work or catching up.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="icon-wrapper"><i class="fa-solid fa-tags"></i></div>
+                    <h3>Affordable Prices</h3>
+                    <p>Premium taste that fits perfectly in your budget.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us -->
+        <section id="about" class="about section bg-alt" data-aos="fade-up">
+            <div class="container about-container">
+                <div class="about-img-wrap">
+                    <img src="vijay_cafe_about.png" alt="Vijay Cafe" class="about-img"
+                        onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80'">
+                    <div class="experience-badge">
+                        <span class="years">1+</span>
+                        <span class="text">Year of<br>Excellence</span>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <span class="subset">About Vijay Cafe</span>
+                    <h2>Where delicious food meets a cozy atmosphere</h2>
+                    <p>Welcome to Vijay Cafe in Tirupati! We serve freshly prepared burgers, signature
+                        sandwiches, irresistible beverages, and snacks — all made with love and quality ingredients.</p>
+                    <p>Whether you're grabbing a quick bite or settling in with friends, our warm ambience in the heart
+                        of Tirupati perfectly complements every carefully crafted dish on our menu.</p>
+                    <a href="menu.html" class="btn btn-primary mt-4">Explore Our Menu</a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Featured Flavors Section -->
+        <section id="menu-cta" class="featured-flavors section" data-aos="fade-up">
+            <div class="container">
+                <div class="flavors-container">
+                    <div class="flavors-content" data-aos="fade-right">
+                        <span class="subset">Discover Our Signature Tastes</span>
+                        <h2>Featured Flavors from Vijay Cafe</h2>
+                        <p>
+                            Indulge in a curated selection of our most loved creations. From our artisan-crafted coffee 
+                            to our gourmet burgers, each dish is a testament to our passion for quality and fresh vibes.
+                        </p>
+                        <a href="menu.html" class="btn btn-cta-premium btn-glow">
+                            View Full Menu <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="flavors-visual" data-aos="fade-left">
+                        <div class="flavor-card">
+                            <img src="menu_coffee.png" alt="Premium Coffee">
+                            <div class="flavor-overlay">
+                                <h4>Artisan Coffee</h4>
+                            </div>
+                        </div>
+                        <div class="flavor-card">
+                            <img src="menu_burger.png" alt="Signature Burger">
+                            <div class="flavor-overlay">
+                                <h4>Gourmet Burger</h4>
+                            </div>
+                        </div>
+                        <div class="flavor-card">
+                            <img src="menu_sandwich.png" alt="Healthy Sandwich">
+                            <div class="flavor-overlay">
+                                <h4>Healthy Bites</h4>
+                            </div>
+                        </div>
+                        <div class="flavor-card">
+                            <img src="menu_drink.png" alt="Refreshing Drink">
+                            <div class="flavor-overlay">
+                                <h4>Fresh Sips</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews -->
+        <section class="reviews section" data-aos="fade-up">
+            <div class="container">
+                <div class="section-header text-center m-b-xl" data-aos="fade-in">
+                    <span class="subset">Testimonials</span>
+                    <h2>What Our Customers Say</h2>
+                </div>
+                <!-- Swiper -->
+                <div class="swiper review-swiper">
+                    <div class="swiper-wrapper">
+                        <!-- Review 1 -->
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <div class="rating text-warning"><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                <p class="review-text">"I stopped by Vijay Cafe and tried their coffee and bun
+                                    maska. The coffee wasn't quite my cup of tea ☕, but the bun maska? Now that was a
+                                    fluffy, buttery dream! 🤩 I'll definitely be back — it's bun-believable! 🧈"</p>
+                                <div class="reviewer">
+                                    <div class="avatar">P</div>
+                                    <div class="info">
+                                        <h4>P Yaswanth</h4>
+                                        <span>Customer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Review 2 -->
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <div class="rating text-warning"><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                <p class="review-text">"Tried tea, coffee and french fries — all were great! The milk in
+                                    both tea and coffee is thick and creamy. French fries were too good — just salt and
+                                    a little masala, no artificial flavours. Loved it!"</p>
+                                <div class="reviewer">
+                                    <div class="avatar">N</div>
+                                    <div class="info">
+                                        <h4>Neeharika Pulluru</h4>
+                                        <span>Customer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Review 3 -->
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <div class="rating text-warning"><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                                <p class="review-text">"It's great to have snack time here — the maska bun was too
+                                    yummy! A perfect spot for a quick, satisfying bite."</p>
+                                <div class="reviewer">
+                                    <div class="avatar">T</div>
+                                    <div class="info">
+                                        <h4>Thummala Manoj</h4>
+                                        <span>Local Guide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Review 4 -->
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <div class="rating text-warning"><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                <p class="review-text">"Super place to sit with friends and relax. Nice ambience —
+                                    exactly what you need after a long day. Will definitely be visiting again!"</p>
+                                <div class="reviewer">
+                                    <div class="avatar">K</div>
+                                    <div class="info">
+                                        <h4>Krishna</h4>
+                                        <span>Local Guide</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Review 5 -->
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <div class="rating text-warning"><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                <p class="review-text">"Best place to have a tea or coffee... Maska bun tastes the best!
+                                    A hidden gem in Tirupati that deserves more recognition."</p>
+                                <div class="reviewer">
+                                    <div class="avatar">G</div>
+                                    <div class="info">
+                                        <h4>Gangula Venkateswarlu Yadav</h4>
+                                        <span>Customer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Swiper Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Swiper Navigation Arrows -->
+                    <button id="review-prev-unique" class="custom-swiper-nav prev" aria-label="Previous Review">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button id="review-next-unique" class="custom-swiper-nav next" aria-label="Next Review">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="gallery section bg-alt" data-aos="fade-up">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="subset">Follow us @vijaycafe</span>
+                    <h2>Instagram Gallery</h2>
+                    <p class="text-muted mt-4">Tag us for a chance to be featured</p>
+                </div>
+
+                <!-- Simple Gallery Grid -->
+                <div class="gallery-simple-grid">
+                    <div class="gallery-simple-item">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Coffee Art">
+                    </div>
+                    <div class="gallery-simple-item">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Burger Meal">
+                    </div>
+                    <div class="gallery-simple-item">
+                        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Coffee">
+                    </div>
+                    <div class="gallery-simple-item">
+                        <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                            alt="Burger">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location -->
+        <section id="contact" class="contact section" data-aos="fade-up">
+            <div class="container contact-container">
+                <div class="contact-info" data-aos="fade-right">
+                    <span class="subset">Visit Us</span>
+                    <h2>Location & Contact</h2>
+                    <p class="m-b-lg">Come by and experience the great vibes yourself. We're always excited to welcome
+                        you!</p>
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Our Address</h4>
+                            <p>42 Gourmet Avenue, Food District,<br>City Center, Tirupati,<br>Andhra Pradesh 517501</p>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="map-link"><i
+                                    class="fa-solid fa-map"></i> View on
+                                Maps</a>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+919876501234">+91 98765 01234</a></p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>Mon - Sun: 10:00 AM - 11:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-wrapper" data-aos="fade-left" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="map-container"
+                        style="flex: 1; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">
+                        <iframe src="https://maps.google.com/maps?q=Vijay+Cafe,+City+Center&output=embed" width="100%"
+                            height="100%" style="border:0; min-height: 300px;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-center"
+                        style="width: 100%;">
+                        <i class="fa-solid fa-location-dot"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button id="close-cart" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically injected here -->
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+
+        <!-- Promo Code Section -->
+        <div class="cart-promo-section">
+            <div id="available-promos-container" class="available-promos d-none">
+                <!-- Public promos injected here -->
+            </div>
+
+            <div class="promo-input-group" id="promo-input-group">
+                <input type="text" id="promo-code-input" placeholder="Enter promo code" autocomplete="off">
+                <button id="apply-promo-btn" class="btn btn-secondary">Apply</button>
+            </div>
+
+            <div id="applied-promo-display" class="applied-promo d-none">
+                <div class="applied-promo-details">
+                    <i class="fa-solid fa-tag"></i>
+                    <span id="applied-promo-code"></span>
+                    <span id="applied-promo-discount" class="text-success ms-2"></span>
+                </div>
+                <button id="remove-promo-btn" class="icon-btn text-danger"><i
+                        class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal-price">₹0</span>
+                </div>
+                <div class="summary-line text-success d-none" id="cart-discount-row">
+                    <span>Discount</span>
+                    <span id="cart-discount-value">-₹0</span>
+                </div>
+                <div class="summary-line text-sm text-muted">
+                    <span id="cgst-label">CGST (0%)</span>
+                    <span id="cart-cgst-price">₹0</span>
+                </div>
+                <div class="summary-line text-sm text-muted">
+                    <span id="sgst-label">SGST (0%)</span>
+                    <span id="cart-sgst-price">₹0</span>
+                </div>
+            </div>
+            <div class="cart-total mt-4">
+                <span>Total:</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <button class="btn btn-primary w-100 mt-4" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" data-aos="fade-up">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Vijay <span>Cafe</span>
+                </a>
+                <p class="mt-4">Fresh bites, great vibes, and unforgettable memories.</p>
+                <div class="social-links mt-4">
+                    <a href="https://www.facebook.com/vijaycafe" target="_blank" rel="noopener noreferrer"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/vijaycafe" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@vijaycafe" target="_blank" rel="noopener noreferrer"
+                        aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://wa.me/919876501234?text=Hi%20Vijay%20Cafe!%20I%20want%20to%20place%20an%20order."
+                        target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="menu.html#offers">Special Offers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/vijaycafe" target="_blank" rel="noopener noreferrer"><i
+                                class="fa-brands fa-instagram"></i>
+                            Instagram</a></li>
+                    <li><a href="https://www.facebook.com/vijaycafe" target="_blank" rel="noopener noreferrer"><i
+                                class="fa-brands fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="https://www.youtube.com/@vijaycafe" target="_blank" rel="noopener noreferrer"><i
+                                class="fa-brands fa-youtube"></i> YouTube</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Subscribe to get updates on special offers</p>
+                <form class="newsletter-form mt-4">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Vijay Cafe. All rights reserved. &nbsp;|&nbsp; Designed by <a
+                    href="https://vrwebsitesapplications.in/" target="_blank" rel="noopener noreferrer"
+                    class="footer-designer-link">VR Websites</a></p>
+        </div>
+    </footer>
+
+
+
+    <!-- Auth Modal (Login / Sign Up) -->
+    <div class="checkout-modal-overlay" id="auth-modal">
+        <div class="checkout-modal-content" style="max-width: 400px;">
+            <button class="close-modal-btn" id="close-auth-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div id="login-view">
+                <h3 class="modal-title">Welcome Back</h3>
+                <p class="modal-desc">Login to re-order your favorites instantly.</p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" id="login-btn" class="btn btn-primary w-100 mt-4">Login</button>
+                    <div id="login-error-msg"
+                        style="color:red; font-size:0.85rem; margin-top:0.5rem; text-align:center; display:none;"></div>
+                </form>
+
+                <div class="auth-divider"><span>OR</span></div>
+
+                <button id="google-login-btn" class="google-btn-modern">
+                    <svg class="google-icon-svg" viewBox="0 0 24 24">
+                        <path fill="#4285F4"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05"
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#EA4335"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Continue with Google
+                </button>
+                <p class="text-center mt-4 text-sm text-muted">Don't have an account? <a href="#" id="show-signup"
+                        style="color: var(--clr-primary); font-weight: 600;">Sign Up</a></p>
+            </div>
+
+            <div id="signup-view" style="display: none;">
+                <h3 class="modal-title">Create Account</h3>
+                <p class="modal-desc">Join us to save details and track orders.</p>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password" required
+                            minlength="6">
+                    </div>
+                    <button type="submit" id="signup-btn" class="btn btn-primary w-100 mt-4">Sign Up</button>
+                    <div id="signup-error-msg"
+                        style="color:red; font-size:0.85rem; margin-top:0.5rem; text-align:center; display:none;"></div>
+                </form>
+                <p class="text-center mt-4 text-sm text-muted">Already have an account? <a href="#" id="show-login"
+                        style="color: var(--clr-primary); font-weight: 600;">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Account Dashboard Modal -->
+    <div class="checkout-modal-overlay" id="account-modal">
+        <div class="checkout-modal-content" style="max-width: 700px;">
+            <button class="close-modal-btn" id="close-account-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-clr); padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h3 class="modal-title" style="margin-bottom: 0;"><i class="fa-solid fa-circle-user"
+                            style="color: var(--clr-primary); margin-right: 8px;"></i> My Account</h3>
+                    <p class="text-muted text-sm" id="account-user-email" style="margin-top: 5px; font-weight: 500;">
+                        user@example.com</p>
+                </div>
+                <button id="logout-btn" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;"><i
+                        class="fa-solid fa-right-from-bracket mr-2"></i>Logout</button>
+            </div>
+
+            <h4 style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-dark);">Past Orders</h4>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+                <table class="data-table" style="min-width: 500px;">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-orders-body">
+                        <tr>
+                            <td colspan="6" class="text-center text-muted" style="padding: 2rem;">Loading orders...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal-overlay" id="checkout-modal">
+        <div class="checkout-modal-content">
+            <button class="close-modal-btn" id="close-checkout-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Complete Your Order</h3>
+            <p class="modal-desc">Please provide your details so we can serve you better.</p>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="table-number">Table Number *</label>
+                    <input type="number" id="table-number" placeholder="e.g. 5" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number *</label>
+                    <input type="tel" id="mobile-number" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}"
+                        required>
+                </div>
+                <button type="submit" id="place-order-btn" class="btn btn-primary w-100 mt-4">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <a href="https://wa.me/919876501234" target="_blank" rel="noopener noreferrer" class="floating-whatsapp"
+        aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <!-- AOS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>

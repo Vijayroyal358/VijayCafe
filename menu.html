@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Vijay Cafe</title>
+    <meta name="description"
+        content="View our delicious menu of burgers, sandwiches, and beverages at Vijay Cafe in Tirupati.">
+    <!-- CSP: allow eval for Supabase/AOS/Swiper CDN libraries -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; connect-src 'self' https://cdn.jsdelivr.net https://*.supabase.co wss://*.supabase.co; frame-src https://maps.google.com https://www.google.com;">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-mug-hot"></i>
+                Vijay <span>Cafe</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="#" class="active">Menu</a>
+                <a href="index.html#catering">Catering</a>
+                <a href="index.html#about">About Us</a>
+                <a href="#offers">Offers</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="auth-toggle" class="icon-btn" aria-label="User Account">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button id="cart-toggle" class="icon-btn" aria-label="Open Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="menu.html" class="btn btn-primary nav-order-btn">Order Online</a>
+                <button class="mobile-toggle icon-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 80px;">
+        <!-- Popular Menu Items -->
+        <section id="menu" class="popular-menu section" data-aos="fade-up">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="subset">Our Specials</span>
+                    <h2>Delicious Menu</h2>
+                </div>
+
+                <!-- Menu Filters & Search -->
+                <div class="menu-controls">
+                    <!-- Top Row: Mini Search + Diet Toggle Switches -->
+                    <div class="menu-top-bar">
+                        <!-- Mini Search -->
+                        <div class="menu-search-mini">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="menu-search-input" placeholder="Search..." autocomplete="off">
+                        </div>
+
+                        <!-- Veg Toggle Switch -->
+                        <label class="diet-switch-label" for="veg-toggle-switch" title="Vegetarian only">
+                            <i class="fa-regular fa-circle-dot diet-icon-veg"></i>
+                            <span class="diet-switch-text">Veg</span>
+                            <div class="diet-switch">
+                                <input type="checkbox" id="veg-toggle-switch" class="diet-switch-input" data-diet="veg">
+                                <span class="diet-switch-track"></span>
+                            </div>
+                        </label>
+
+                        <!-- Non-Veg Toggle Switch -->
+                        <label class="diet-switch-label" for="non-veg-toggle-switch" title="Non-Vegetarian only">
+                            <i class="fa-solid fa-square-caret-up diet-icon-nonveg"></i>
+                            <span class="diet-switch-text">Non-Veg</span>
+                            <div class="diet-switch">
+                                <input type="checkbox" id="non-veg-toggle-switch" class="diet-switch-input"
+                                    data-diet="non-veg">
+                                <span class="diet-switch-track nonveg-track"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Category Filter Row -->
+                    <div class="menu-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <!-- Dynamic categories will be injected here via JS -->
+                    </div>
+                </div>
+
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Menu items will be injected here via Supabase in script.js -->
+                </div>
+
+                <!-- No Results Message -->
+                <div id="no-results-msg" class="text-center d-none mt-8">
+                    <h3>No items found</h3>
+                    <p class="text-muted">Try a different search term or category.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offers Banner -->
+        <section id="offers" class="offers-banner section parallax-bg" data-aos="fade-up">
+            <div class="container relative z-10 text-center text-white p-y-lg">
+                <span class="badge shimmer">Limited Time Offer</span>
+                <h2 class="title-lg">Happy Hours Are Here!</h2>
+                <div class="offer-boxes" id="offers-container">
+                    <!-- Offers will be injected here via Supabase in script.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button id="close-cart" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically injected here -->
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+
+        <!-- Promo Code Section -->
+        <div class="cart-promo-section">
+            <div id="available-promos-container" class="available-promos d-none">
+                <!-- Public promos injected here -->
+            </div>
+
+            <div class="promo-input-group" id="promo-input-group">
+                <input type="text" id="promo-code-input" placeholder="Enter promo code" autocomplete="off">
+                <button id="apply-promo-btn" class="btn btn-secondary">Apply</button>
+            </div>
+
+            <div id="applied-promo-display" class="applied-promo d-none">
+                <div class="applied-promo-details">
+                    <i class="fa-solid fa-tag"></i>
+                    <span id="applied-promo-code"></span>
+                    <span id="applied-promo-discount" class="text-success ms-2"></span>
+                </div>
+                <button id="remove-promo-btn" class="icon-btn text-danger"><i
+                        class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal-price">₹0</span>
+                </div>
+                <div class="summary-line text-success d-none" id="cart-discount-row">
+                    <span>Discount</span>
+                    <span id="cart-discount-value">-₹0</span>
+                </div>
+                <div class="summary-line text-sm text-muted">
+                    <span id="cgst-label">CGST (0%)</span>
+                    <span id="cart-cgst-price">₹0</span>
+                </div>
+                <div class="summary-line text-sm text-muted">
+                    <span id="sgst-label">SGST (0%)</span>
+                    <span id="cart-sgst-price">₹0</span>
+                </div>
+            </div>
+            <div class="cart-total mt-4">
+                <span>Total:</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <button class="btn btn-primary w-100 mt-4" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" data-aos="fade-up">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo text-white">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Vijay <span>Cafe</span>
+                </a>
+                <p class="mt-4">Fresh bites, great vibes, and unforgettable memories.</p>
+                <div class="social-links mt-4">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="#">Our Menu</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="#offers">Special Offers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Subscribe to get updates on special offers</p>
+                <form class="newsletter-form mt-4">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Vijay Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <a href="https://wa.me/919876501234?text=Hi%20Vijay%20Cafe!%20I%20want%20to%20place%20an%20order."
+        class="floating-whatsapp" target="_blank" aria-label="Order on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Auth Modal (Login / Sign Up) -->
+    <div class="checkout-modal-overlay" id="auth-modal">
+        <div class="checkout-modal-content" style="max-width: 400px;">
+            <button class="close-modal-btn" id="close-auth-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div id="login-view">
+                <h3 class="modal-title">Welcome Back</h3>
+                <p class="modal-desc">Login to re-order your favorites instantly.</p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" id="login-btn" class="btn btn-primary w-100 mt-4">Login</button>
+                    <div id="login-error-msg"
+                        style="color:red; font-size:0.85rem; margin-top:0.5rem; text-align:center; display:none;"></div>
+                </form>
+
+                <div class="auth-divider"><span>OR</span></div>
+
+                <button id="google-login-btn" class="btn btn-outline w-100"
+                    style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05"
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#EA4335"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Continue with Google
+                </button>
+                <p class="text-center mt-4 text-sm text-muted">Don't have an account? <a href="#" id="show-signup"
+                        style="color: var(--clr-primary); font-weight: 600;">Sign Up</a></p>
+            </div>
+
+            <div id="signup-view" style="display: none;">
+                <h3 class="modal-title">Create Account</h3>
+                <p class="modal-desc">Join us to save details and track orders.</p>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password" required
+                            minlength="6">
+                    </div>
+                    <button type="submit" id="signup-btn" class="btn btn-primary w-100 mt-4">Sign Up</button>
+                    <div id="signup-error-msg"
+                        style="color:red; font-size:0.85rem; margin-top:0.5rem; text-align:center; display:none;"></div>
+                </form>
+                <p class="text-center mt-4 text-sm text-muted">Already have an account? <a href="#" id="show-login"
+                        style="color: var(--clr-primary); font-weight: 600;">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Account Dashboard Modal -->
+    <div class="checkout-modal-overlay" id="account-modal">
+        <div class="checkout-modal-content" style="max-width: 700px;">
+            <button class="close-modal-btn" id="close-account-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-clr); padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h3 class="modal-title" style="margin-bottom: 0;"><i class="fa-solid fa-circle-user"
+                            style="color: var(--clr-primary); margin-right: 8px;"></i> My Account</h3>
+                    <p class="text-muted text-sm" id="account-user-email" style="margin-top: 5px; font-weight: 500;">
+                        user@example.com</p>
+                </div>
+                <button id="logout-btn" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;"><i
+                        class="fa-solid fa-right-from-bracket mr-2"></i>Logout</button>
+            </div>
+
+            <h4 style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-dark);">Past Orders</h4>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
+                <table class="data-table" style="min-width: 500px;">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-orders-body">
+                        <tr>
+                            <td colspan="6" class="text-center text-muted" style="padding: 2rem;">Loading orders...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal-overlay" id="checkout-modal">
+        <div class="checkout-modal-content">
+            <button class="close-modal-btn" id="close-checkout-modal" aria-label="Close Modal"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Complete Your Order</h3>
+            <p class="modal-desc">Please provide your details so we can serve you better.</p>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="table-number">Table Number *</label>
+                    <input type="number" id="table-number" placeholder="e.g. 5" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number *</label>
+                    <input type="tel" id="mobile-number" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}"
+                        required>
+                </div>
+                <button type="submit" id="place-order-btn" class="btn btn-primary w-100 mt-4">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>

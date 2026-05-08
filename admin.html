@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Vijay Cafe</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <div class="logo">
+                <i class="fa-solid fa-mug-hot"></i> Vijay <span>Cafe</span>
+            </div>
+            <h2>Admin Login</h2>
+            <form id="login-form" onsubmit="return handleAdminLogin(event)">
+                <div class="form-group">
+                    <label>Admin Passcode</label>
+                    <input type="password" id="admin-passcode" placeholder="Enter Admin Passcode"
+                        autocomplete="current-password" required>
+                </div>
+                <button type="submit" id="login-btn" class="btn btn-primary w-100">Login to Dashboard</button>
+            </form>
+            <p id="login-error" class="error-msg d-none">Invalid passcode!</p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard layout -->
+    <div id="dashboard-wrapper" class="dashboard-wrapper d-none">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo" target="_blank">
+                    <i class="fa-solid fa-mug-hot"></i>Vijay Cafe Admin
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-target="menu-mgmt"><i class="fa-solid fa-utensils"></i> Menu
+                    Items</button>
+                <button class="nav-btn" data-target="offers-mgmt"><i class="fa-solid fa-tags"></i> Special
+                    Offers</button>
+                <button class="nav-btn" data-target="promo-mgmt"><i class="fa-solid fa-ticket-simple"></i> Promo
+                    Codes</button>
+                <button class="nav-btn" data-target="billing-mgmt"><i class="fa-solid fa-cash-register"></i> Billing
+                    (POS)</button>
+                <button class="nav-btn" data-target="orders-mgmt"><i class="fa-solid fa-receipt"></i> Orders
+                    List</button>
+                <button class="nav-btn" data-target="sales-analysis"><i class="fa-solid fa-chart-line"></i> Sales
+                    Analysis</button>
+                <button class="nav-btn" data-target="settings-mgmt"><i class="fa-solid fa-gear"></i> Settings</button>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="nav-btn text-danger"><i class="fa-solid fa-right-from-bracket"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h2>Dashboard</h2>
+                <div class="user-info">
+                    <div class="avatar">A</div>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+
+                <!-- Menu Management View -->
+                <section id="menu-mgmt" class="mgmt-section active">
+                    <div class="section-header">
+                        <div>
+                            <h3>Manage Menu</h3>
+                            <p class="text-muted">Add, Edit or Remove items from the cafe menu.</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-menu-btn"><i class="fa-solid fa-plus"></i> Add New
+                            Item</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Diet</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menu-table-body">
+                                <!-- Data injected via JS -->
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Offers Management View -->
+                <section id="offers-mgmt" class="mgmt-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Manage Offers</h3>
+                            <p class="text-muted">Control the special offers displayed on the homepage.</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-offer-btn"><i class="fa-solid fa-plus"></i> Add New
+                            Offer</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Subtitle</th>
+                                    <th>Condition</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="offers-table-body">
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Promo Codes Management View -->
+                <section id="promo-mgmt" class="mgmt-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Manage Promo Codes</h3>
+                            <p class="text-muted">Create discount codes for user checkout and POS billing.</p>
+                        </div>
+                        <button class="btn btn-primary" id="add-promo-btn"><i class="fa-solid fa-plus"></i> Add New
+                            Promo</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Discount</th>
+                                    <th>Min. Order</th>
+                                    <th>Visibility</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="promo-table-body">
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Billing (POS) View -->
+                <section id="billing-mgmt" class="mgmt-section pos-section">
+                    <div class="pos-layout">
+                        <!-- POS Menu Area -->
+                        <div class="pos-menu-area">
+                            <div class="pos-filters mb-3">
+                                <div class="pos-search-wrapper">
+                                    <i class="fa-solid fa-search"></i>
+                                    <input type="text" id="pos-search" class="pos-search-input"
+                                        placeholder="Search menu items...">
+                                </div>
+                                <div class="pos-categories mt-3">
+                                    <button class="btn btn-outline pos-cat-btn active" data-cat="all">All</button>
+                                    <button class="btn btn-outline pos-cat-btn" data-cat="burgers">Burgers</button>
+                                    <button class="btn btn-outline pos-cat-btn"
+                                        data-cat="sandwiches">Sandwiches</button>
+                                    <button class="btn btn-outline pos-cat-btn" data-cat="beverages">Beverages</button>
+                                    <button class="btn btn-outline pos-cat-btn" data-cat="snacks">Snacks</button>
+                                </div>
+                            </div>
+                            <div class="pos-menu-grid" id="pos-menu-grid">
+                                <!-- POS items injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- POS Cart Area -->
+                        <div class="pos-cart-area card">
+                            <div class="pos-cart-header">
+                                <h4>Current Order</h4>
+                                <div class="pos-table-input-wrapper mt-3 mb-1">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="pos-table-number" class="pos-table-input"
+                                        placeholder="Table Number / Cust. Name">
+                                </div>
+                            </div>
+
+                            <div class="pos-cart-items" id="pos-cart-items">
+                                <!-- Cart items injected via JS -->
+                                <div class="text-center text-muted" style="padding: 2rem 0;">Cart is empty</div>
+                            </div>
+
+                            <div class="pos-cart-summary">
+                                <div id="pos-applied-promo-container" class="d-none mb-2">
+                                    <div class="pos-applied-promo-badge"
+                                        style="background:#ECFDF5;color:#065F46;padding:0.75rem;border-radius:8px;display:flex;align-items:center;gap:0.5rem;border:1px solid #A7F3D0;">
+                                        <i class="fa-solid fa-ticket-simple"></i>
+                                        <span id="pos-applied-promo-code" style="font-weight:700;"></span>
+                                        <span id="pos-applied-promo-discount"
+                                            style="margin-left:auto;font-weight:700;"></span>
+                                        <button class="btn-icon" onclick="removePosPromo()"
+                                            style="color:#065F46;margin-left:0.5rem;"><i
+                                                class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div class="pos-promo-wrapper">
+                                    <input type="text" id="pos-promo-input" class="pos-promo-input"
+                                        placeholder="Promo Code">
+                                    <button class="btn btn-secondary" id="pos-apply-promo-btn">Apply</button>
+                                </div>
+
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span id="pos-subtotal">₹0.00</span>
+                                </div>
+                                <div class="summary-row text-muted" style="font-size:0.85rem;" id="pos-discount-row">
+                                    <span style="color:#03543F">Discount</span>
+                                    <span id="pos-discount-val" style="color:#03543F">-₹0.00</span>
+                                </div>
+                                <div class="summary-row text-muted" style="font-size:0.85rem;">
+                                    <span>CGST (<span id="pos-cgst-rate">0</span>%)</span>
+                                    <span id="pos-cgst-val">₹0.00</span>
+                                </div>
+                                <div class="summary-row text-muted" style="font-size:0.85rem;">
+                                    <span>SGST (<span id="pos-sgst-rate">0</span>%)</span>
+                                    <span id="pos-sgst-val">₹0.00</span>
+                                </div>
+                                <div class="summary-row text-muted"
+                                    style="font-size:0.85rem;padding-bottom:0.5rem;border-bottom:1px dashed var(--border-clr);">
+                                    <span>Platform Fee</span>
+                                    <span id="pos-platform-val">₹0.00</span>
+                                </div>
+                                <div class="summary-row grand-total mt-2">
+                                    <span>Total</span>
+                                    <span id="pos-grand-total">₹0.00</span>
+                                </div>
+
+                                <button class="btn btn-primary w-100 mt-3" id="pos-checkout-btn"
+                                    style="padding:1rem;font-size:1.1rem;font-weight:700;">Complete Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Management View -->
+                <section id="orders-mgmt" class="mgmt-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Recent Orders</h3>
+                            <p class="text-muted">View and manage customer orders.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="fetchOrders()"><i
+                                class="fa-solid fa-rotate-right"></i>
+                            Refresh</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date/Time</th>
+                                    <th>Table/Phone</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary" id="page-prev-btn" onclick="changeOrdersPage(-1)" disabled><i
+                                class="fa-solid fa-chevron-left"></i> Previous</button>
+                        <span id="page-indicator">Page 1</span>
+                        <button class="btn btn-secondary" id="page-next-btn" onclick="changeOrdersPage(1)">Next <i
+                                class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </section>
+
+                <!-- Sales Analysis View -->
+                <section id="sales-analysis" class="mgmt-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Sales Analysis</h3>
+                            <p class="text-muted">Analyze your revenue and top-selling items.</p>
+                        </div>
+                        <div class="date-filters">
+                            <input type="date" id="sales-start-date" title="Start Date">
+                            <span class="text-muted" style="margin:0 0.25rem;">to</span>
+                            <input type="date" id="sales-end-date" title="End Date">
+                            <button class="btn btn-primary" id="apply-date-filter">Filter</button>
+                            <button class="btn btn-secondary" id="export-sales-btn"><i class="fa-solid fa-file-csv"></i>
+                                Export CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="quick-filters">
+                        <button class="btn btn-outline quick-filter active" data-filter="today">Today</button>
+                        <button class="btn btn-outline quick-filter" data-filter="yesterday">Yesterday</button>
+                        <button class="btn btn-outline quick-filter" data-filter="7days">Last 7 Days</button>
+                        <button class="btn btn-outline quick-filter" data-filter="30days">Last 30 Days</button>
+                    </div>
+
+                    <div class="dashboard-metrics">
+                        <div class="metric-card card-blue">
+                            <div class="metric-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div class="metric-info">
+                                <h5>Total Revenue</h5>
+                                <h2 id="metric-revenue">₹0</h2>
+                            </div>
+                        </div>
+                        <div class="metric-card card-green">
+                            <div class="metric-icon"><i class="fa-solid fa-receipt"></i></div>
+                            <div class="metric-info">
+                                <h5>Total Orders</h5>
+                                <h2 id="metric-orders">0</h2>
+                            </div>
+                        </div>
+                        <div class="metric-card card-purple">
+                            <div class="metric-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                            <div class="metric-info">
+                                <h5>Avg. Order Value</h5>
+                                <h2 id="metric-aov">₹0</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sales-dashboard-grid">
+                        <div class="card chart-container">
+                            <h4>Revenue Trend</h4>
+                            <div class="chart-canvas-wrapper">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card top-items-container">
+                            <h4>Top Selling Items</h4>
+                            <div class="table-container" style="margin-top:1rem;">
+                                <table class="data-table" style="min-width:200px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Qty Sold</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top-items-body">
+                                        <!-- Data injected via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Management View -->
+                <section id="settings-mgmt" class="mgmt-section">
+                    <div class="section-header">
+                        <div>
+                            <h3>Site Settings</h3>
+                            <p class="text-muted">Configure System Taxes.</p>
+                        </div>
+                    </div>
+                    <div class="settings-container">
+                        <form id="settings-form" class="settings-form card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4>General Configuration</h4>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2" style="font-weight: 600; font-size: 0.9rem;">Shop Status:</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="setting-offline" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span id="shop-status-label" class="status-label online">Online</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>CGST (%)</label>
+                                    <input type="number" id="setting-cgst" step="0.01" min="0" max="100" required>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>SGST (%)</label>
+                                    <input type="number" id="setting-sgst" step="0.01" min="0" max="100" required>
+                                </div>
+                            </div>
+
+                            <h4 style="margin-top: 1.5rem; color: var(--clr-primary);">Security Settings</h4>
+                            <div class="form-group">
+                                <label>Admin Passcode</label>
+                                <p class="text-muted" style="font-size:0.8rem;margin-bottom:0.5rem;">Update the password
+                                    used to log into this admin panel.</p>
+                                <input type="password" id="setting-admin-pass"
+                                    placeholder="Enter new password (optional)" autocomplete="new-password">
+                            </div>
+
+                            <h4 style="margin-top: 1.5rem; color: var(--clr-primary);">Category Priorities</h4>
+                            <p class="text-muted" style="font-size:0.8rem;margin-bottom:1rem;">Assign priority numbers
+                                to categories (1 is highest). Leave empty or 0 for default priority.</p>
+                            <div id="category-priority-list" class="category-priority-list">
+                                <!-- Dynamically populated via JS -->
+                                <p class="text-muted italic">Add menu items to see categories here.</p>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="save-settings-btn">Save Settings</button>
+                        </form>
+                    </div>
+                </section>
+
+            </div> <!-- Close content-area -->
+        </main>
+    </div> <!-- End dashboard-wrapper -->
+
+
+    <!-- Menu Item Modal -->
+    <div id="menu-modal" class="modal-overlay d-none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="menu-modal-title">Add Menu Item</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="menu-form">
+                <input type="hidden" id="menu-id">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="menu-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="menu-desc" rows="3" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>Price (₹)</label>
+                        <input type="number" id="menu-price" required min="1">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>Discount (%)</label>
+                        <input type="number" id="menu-discount" value="0" min="0" max="100">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>Category</label>
+                        <select id="menu-cat-select" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="__ADD_NEW__" style="font-weight:bold; color:var(--clr-primary);">+ Add Custom
+                                Category</option>
+                        </select>
+                        <input type="text" id="menu-cat-custom" placeholder="Type new category..."
+                            style="display:none; margin-top: 0.5rem;" autocomplete="off">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>Diet</label>
+                        <select id="menu-diet" required>
+                            <option value="veg">Veg</option>
+                            <option value="non-veg">Non-Veg</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" id="menu-img" placeholder="https://..." required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="menu-active" checked>
+                    <label for="menu-active">Item is Available</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-menu-btn">Save Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Offer Modal -->
+    <div id="offer-modal" class="modal-overlay d-none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="offer-modal-title">Add Offer</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="offer-form">
+                <input type="hidden" id="offer-id">
+                <div class="form-group">
+                    <label>Offer Title</label>
+                    <input type="text" id="offer-title" placeholder="e.g. Buy 1 Get 1 Free" required>
+                </div>
+                <div class="form-group">
+                    <label>Subtitle / Description</label>
+                    <input type="text" id="offer-subtitle" placeholder="e.g. Sweet Treat" required>
+                </div>
+                <div class="form-group">
+                    <label>Condition</label>
+                    <input type="text" id="offer-condition" placeholder="e.g. Valid on Tuesdays" required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="offer-active" checked>
+                    <label for="offer-active">Offer is Active</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-offer-btn">Save Offer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Promo Code Modal -->
+    <div id="promo-modal" class="modal-overlay d-none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="promo-modal-title">Add Promo Code</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="promo-form">
+                <input type="hidden" id="promo-id">
+                <div class="form-group">
+                    <label>Code (e.g. WELCOME10)</label>
+                    <input type="text" id="promo-code" style="text-transform: uppercase;" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>Discount Type</label>
+                        <select id="promo-type" required>
+                            <option value="percentage">Percentage (%)</option>
+                            <option value="fixed">Fixed Amount (₹)</option>
+                        </select>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>Discount Value</label>
+                        <input type="number" id="promo-value" step="0.01" min="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Minimum Cart Value (₹)</label>
+                    <input type="number" id="promo-min" value="0" min="0">
+                </div>
+                <div class="form-group checkbox-group mb-2 mt-3">
+                    <input type="checkbox" id="promo-active" checked>
+                    <label for="promo-active" style="font-weight: bold;">Promo is Active</label>
+                </div>
+                <div class="form-group checkbox-group mb-4">
+                    <input type="checkbox" id="promo-public" checked>
+                    <label for="promo-public"><strong>Visible to Customers</strong> <br><small class="text-muted"
+                            style="margin-left: 20px; display: block; font-weight: normal;">If unchecked, the code can
+                            still be used but won't be advertised in the cart.</small></label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-promo-btn">Save Promo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Notification Modal -->
+    <div id="order-notification" class="toast success d-none"
+        style="position: fixed; top: 20px; right: 20px; z-index: 9999; transform: translateX(0); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+        <i class="fa-solid fa-bell fa-shake text-warning" style="font-size: 1.5rem;"></i>
+        <div>
+            <strong style="display: block; font-size: 1.1rem; margin-bottom: 2px;">New Order Received!</strong>
+            <span id="order-notif-text">Order #123 generated</span>
+        </div>
+        <button class="btn-icon" onclick="document.getElementById('order-notification').classList.add('d-none')"
+            style="margin-left:auto;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="admin-toast-container" class="toast-container"></div>
+
+    <!-- Hidden Print Receipt Template -->
+    <div id="print-receipt-container" class="d-none">
+        <div class="receipt-header text-center">
+            <h2>Vijay Cafe</h2>
+            <p>42 Gourmet Avenue, Food District</p>
+            <p>Phone: +91 98765 01234</p>
+            <hr>
+            <h3 class="mt-2 mb-2">TAX INVOICE</h3>
+            <hr>
+        </div>
+        <div class="receipt-info mb-3">
+            <p><strong>Order ID:</strong> <span id="print-order-id"></span></p>
+            <p><strong>Date:</strong> <span id="print-order-date"></span></p>
+            <p><strong>Table/Customer:</strong> <span id="print-order-table"></span></p>
+        </div>
+        <table class="receipt-items w-100 mb-3">
+            <thead>
+                <tr>
+                    <th class="text-left">Item</th>
+                    <th class="text-center">Qty</th>
+                    <th class="text-right">Price</th>
+                </tr>
+            </thead>
+            <tbody id="print-items-body">
+                <!-- JS Inject -->
+            </tbody>
+        </table>
+        <hr>
+        <div class="receipt-totals text-right mt-2">
+            <p>Subtotal: <span id="print-subtotal"></span></p>
+            <p id="print-discount-row" class="d-none">Discount (<span id="print-promo-code"></span>): <span
+                    id="print-discount"></span></p>
+            <p>CGST (<span id="print-cgst-rate"></span>%): <span id="print-cgst"></span></p>
+            <p>SGST (<span id="print-sgst-rate"></span>%): <span id="print-sgst"></span></p>
+            <hr>
+            <h3>Grand Total: <span id="print-grand-total"></span></h3>
+        </div>
+        <hr class="mt-3">
+        <div class="receipt-footer text-center mt-3">
+            <p>Thank you for dining with us!</p>
+            <p>Please visit again.</p>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <audio id="new-order-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
+        preload="auto"></audio>
+</body>
+
+</html>
